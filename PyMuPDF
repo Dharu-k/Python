@@ -1,0 +1,33 @@
+PyMuPDF is a Python binding for MuPDF, a lightweight PDF viewer.
+With PyMuPDF, we can access files with extensions like *.pdf, *.xps, *.oxps, *.epub, *.cbz or *.fb2 from your Python scripts.
+Several popular image formats are supported as well.
+
+CODE : 
+
+import fitz  # PyMuPDF
+
+# Path to the PDF file
+path = r"C:\Users\ELCOT\Downloads\19225-UNIT 3-notes.pdf"
+
+try:
+    # Open the PDF file using PyMuPDF
+    with fitz.open(path) as doc:
+        # Extract text from all pages
+        pymupdf_text = ''
+        for page in doc:
+            pymupdf_text += page.get_text()
+
+    # Save the extracted text to a file
+    output_path = r"C:\Users\ELCOT\Downloads\output_text.txt"
+    with open(output_path, "w", encoding="utf-8") as text_file:
+        text_file.write(pymupdf_text)
+
+    print(f"Text successfully extracted to {output_path}")
+
+except FileNotFoundError:
+    print("The specified PDF file was not found.")
+except Exception as e:
+    print(f"An error occurred: {e}")
+
+
+The above code eliminates the Extra indentation and line breaks.
