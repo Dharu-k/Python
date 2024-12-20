@@ -1,0 +1,46 @@
+PDFMiner is a python based package that is used to extract only PDF files.
+It can also convert PDF files into other file formats like HTML/XML.
+This library provides its response form of an API request. 
+That's why this package takes slightly time other than other purely python-based packages.
+CODE : 
+
+from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter  
+from pdfminer.converter import TextConverter  
+from pdfminer.layout import LAParams  
+from pdfminer.pdfpage import PDFPage  
+from io import StringIO  
+
+def pdf_to_text(path):  
+    res_manager = PDFResourceManager()  
+    ret_str = StringIO()  
+    codec = 'utf-8'  
+    laparams = LAParams()  
+    device = TextConverter(res_manager, ret_str, codec=codec, laparams=laparams)  
+    fp = open(path, 'rb')  
+    interpreter = PDFPageInterpreter(res_manager, device)  
+    password = ""  
+    maxpages = 0  
+    caching = True  
+    pagenos = set()  
+    for page in PDFPage.get_pages(fp, pagenos, maxpages=maxpages, password=password, caching=caching, check_extractable=True):  
+        interpreter.process_page(page)  
+    text = ret_str.getvalue()  
+    fp.close()  
+    device.close()  
+    ret_str.close()  
+    return text  
+
+# Path to the PDF file
+path = r"C:\Users\ELCOT\Downloads\19225-UNIT 3-notes.pdf"  
+
+# Extract text using PDFMiner
+pdf_miner_text = pdf_to_text(path)
+
+# Save the extracted text to a text file
+output_path = r"C:\Users\ELCOT\Downloads\output_text.txt"
+with open(output_path, "w", encoding="utf-8") as text_file:
+    text_file.write(pdf_miner_text)
+
+print(f"Text successfully extracted and saved to {output_path}")
+
+This code will extract the text from the provided PDF using PDFMiner and then save the extracted text into a ".txt" file.
