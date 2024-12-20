@@ -1,0 +1,39 @@
+PyPDF2 is a complete Python package that can be used to perform the many types of PDF operations. We can use this module to perform the following tasks.
+
+We can extract information from a PDF in Python.
+We can rotate pages.
+We can merge two or more PDFs.
+We can split the PDFs.
+We can add watermarks.
+We can encrypt a PDF.
+
+CODE : 
+
+import PyPDF2  
+# Path to the PDF file
+path = r"C:\Users\ELCOT\Downloads\19225-UNIT 3-notes.pdf"  
+try:
+    # Open the PDF file in read-binary mode
+    with open(path, 'rb') as pdfFileObj:
+        # Create a PDF reader object
+        pdfReader = PyPDF2.PdfReader(pdfFileObj)
+        
+        # Print the number of pages in the PDF
+        print(f"Number of pages: {len(pdfReader.pages)}")
+        
+        # Extract text from all pages
+        pypdf2_text = ''
+        for page in pdfReader.pages:
+            pypdf2_text += page.extract_text()
+    # Save the extracted text to a file
+    output_path = r"C:\Users\ELCOT\Downloads\output_text.txt"
+    with open(output_path, "w", encoding="utf-8") as text_file:
+        text_file.write(pypdf2_text) 
+    print(f"Text successfully extracted to {output_path}")
+except FileNotFoundError:
+    print("The specified PDF file was not found.")
+except Exception as e:
+    print(f"An error occurred: {e}")
+ 
+
+The above code prints the number of pages in the pdf. We can also extract the information.
